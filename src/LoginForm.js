@@ -1,9 +1,8 @@
-import { useState } from 'react'
-import { login } from "./utils";
+import { useLogin } from "./hooks/useLogin";
 import "./styles.css";
 
 // ================ LOGIN FORM ====================
-// 
+//
 // Guidelines:
 // * You have an incomplete login form.
 // * You are not allowed to add any additional HTML elements.
@@ -17,23 +16,42 @@ import "./styles.css";
 //  * Show an alert box (native Javascript alert) if login succeeds. Investigate the login function to find out how to log in successfully.
 
 export default function LoginForm() {
- 
+  const { formState, fetchStatus, handleChange, handleSubmit, isBtnDisabled } =
+    useLogin();
   return (
     <div className="wrapper">
       <div className="row">
         <label htmlFor={"email"}>Email</label>
-        <input id={"email"} type={"email"}  />
+        <input
+          onChange={handleChange}
+          value={formState.email}
+          name="email"
+          id={"email"}
+          type={"email"}
+        />
       </div>
       <div className="row">
         <label htmlFor={"password"}>Password</label>
-        <input id={"password"} type={"password"}/>
+        <input
+          onChange={handleChange}
+          value={formState.password}
+          name="password"
+          id={"password"}
+          type={"password"}
+        />
       </div>
 
       {/* Place login error inside this div. Show the div ONLY if there are login errors. */}
-      <div className="errorMessage"></div>
+      {fetchStatus.isError && (
+        <div className="errorMessage" role="alert">
+          {fetchStatus.errMessage}
+        </div>
+      )}
 
       <div className="button">
-        <button>Login</button>
+        <button disabled={isBtnDisabled} onClick={handleSubmit}>
+          Login
+        </button>
       </div>
     </div>
   );
