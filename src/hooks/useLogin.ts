@@ -1,21 +1,43 @@
 import { useState } from "react";
 import { login } from "../utils";
-// Initial states for formState fetchStatus
-const initialFormState = {
+// Types for useLogin hook retun
+type UseLoginReturn = {
+  formState: FormState;
+  fetchStatus: FetchStatus;
+  isBtnDisabled: boolean;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+};
+// Types for form inputs and fetch status
+type FormState = {
+  name: string;
+  email: string;
+  password: string;
+};
+type FetchStatus = {
+  isLoading: boolean;
+  isError: boolean;
+  errMessage: string;
+};
+// Initial states for form inputs and fetch status
+export const initialFormState: FormState = {
   email: "",
+  name: "",
   password: "",
 };
-const initialFetchStatus = {
+export const initialFetchStatus: FetchStatus = {
   isLoading: false,
   isError: false,
   errMessage: "",
 };
 
-export const useLogin = () => {
-  const [formState, setFormState] = useState(initialFormState);
-  const [fetchStatus, setFetchStatus] = useState(initialFetchStatus);
+export const useLogin = (): UseLoginReturn => {
+  const [formState, setFormState] = useState<FormState>(initialFormState);
+  const [fetchStatus, setFetchStatus] =
+    useState<FetchStatus>(initialFetchStatus);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
       // Set the loading state to true and reset error state before login attempt
       setFetchStatus({ ...initialFetchStatus, isLoading: true });
@@ -37,7 +59,7 @@ export const useLogin = () => {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Only reset the error state on the first input change after an error
     if (fetchStatus.isError) setFetchStatus(initialFetchStatus);
 

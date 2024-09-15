@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+body {
+  background: rgb(233, 233, 233);
+  font-family: "Roboto", sans-serif;
+}
+* {
+  // border: 2px solid;
+}
+.wrapper {
+  position: relative;
+  align-items: stretch;
+  background-color: #fff;
+  padding: 1rem 0;
+  display: flex;
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 320px;
+  justify-items: center;
+  flex-direction: column;
+  box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.241);
+  padding-bottom: 2rem;
+}
+@media screen and (min-width: 500px) {
+  .wrapper {
+    width: 400px;
+  }
+}
+// title---------------------------------
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  //   border: 2px solid;
+  padding: 2rem 0;
+  i {
+    font-size: 2rem;
+    color: #ff512f;
+  }
+  h1 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: rgb(59, 59, 59);
+  }
+}
+// form---------------------------------
+.form {
+  width: 100%;
+  max-width: 300px;
+  padding: 1rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  // inputGroup-----------------------------
+  &__inputGroup {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    position: relative;
+
+    &--input {
+      padding: 0.3rem 0.5rem;
+      border: 1px solid rgba(0, 0, 0, 0.247);
+    }
+    &--label {
+      text-transform: capitalize;
+    }
+    &--icon {
+      position: absolute;
+      right: 2px;
+      cursor: pointer;
+      &.active {
+        color: #ff512f;
+      }
+    }
+  }
+  // action-------------------------------
+  &__action {
+    display: flex;
+    &--btn {
+      margin: 0 auto;
+      margin-top: 1.6rem;
+      padding: 10px 25px;
+      text-align: center;
+      text-transform: uppercase;
+      transition: 0.5s;
+      background-size: 200% auto;
+      color: white;
+      border-radius: 10px;
+      display: block;
+      border: 0px;
+      font-weight: 700;
+      box-shadow: 0px 0px 14px -7px #f09819;
+      background-image: linear-gradient(
+        45deg,
+        #ff512f 0%,
+        #f09819 51%,
+        #ff512f 100%
+      );
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      &:disabled {
+        cursor: not-allowed;
+        background: lightgray;
+      }
+      &:hover {
+        background-position: right center;
+        color: #fff;
+        text-decoration: none;
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+  }
+  // error-------------------------------
+
+  &__error {
+    color: rgb(194, 2, 2);
+    padding: 0.5rem;
+    position: absolute;
+    bottom: 2px;
+  }
+}

@@ -1,5 +1,6 @@
+import InputGroup from "./components/InputGroup";
 import { useLogin } from "./hooks/useLogin";
-import "./styles.css";
+import "./styles.scss";
 
 // ================ LOGIN FORM ====================
 //
@@ -20,39 +21,49 @@ export default function LoginForm() {
     useLogin();
   return (
     <div className="wrapper">
-      <div className="row">
-        <label htmlFor={"email"}>Email</label>
-        <input
-          onChange={handleChange}
-          value={formState.email}
+      <div className="title">
+        <i className="bx bx-log-in"></i>
+        <h1>Login</h1>
+      </div>
+      <form data-testid="form" className="form" onSubmit={handleSubmit}>
+        <InputGroup
           name="email"
-          id={"email"}
-          type={"email"}
-        />
-      </div>
-      <div className="row">
-        <label htmlFor={"password"}>Password</label>
-        <input
+          type="email"
+          required
+          value={formState.email}
           onChange={handleChange}
-          value={formState.password}
-          name="password"
-          id={"password"}
-          type={"password"}
         />
-      </div>
+        <InputGroup
+          name="password"
+          type="password"
+          required
+          value={formState.password}
+          onChange={handleChange}
+        />
 
+        <div className="form__action">
+          <button
+            disabled={isBtnDisabled}
+            type="submit"
+            className="form__action--btn"
+            title={
+              formState.email === ""
+                ? "email is empty"
+                : formState.password.length < 6
+                ? "password must be 6 character at least"
+                : "Submit button"
+            }
+          >
+            Login
+          </button>
+        </div>
+      </form>
       {/* Place login error inside this div. Show the div ONLY if there are login errors. */}
       {fetchStatus.isError && (
-        <div className="errorMessage" role="alert">
+        <div data-testid="formError" className="form__error">
           {fetchStatus.errMessage}
         </div>
       )}
-
-      <div className="button">
-        <button disabled={isBtnDisabled} onClick={handleSubmit}>
-          Login
-        </button>
-      </div>
     </div>
   );
 }
